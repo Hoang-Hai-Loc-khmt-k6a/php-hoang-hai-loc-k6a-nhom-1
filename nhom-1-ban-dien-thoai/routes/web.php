@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\BannerModel;
 
 Route::get('/', function () {
-    return view('welcome');
+    $banners = BannerModel::all();
+    return view('welcome', ['banners' => $banners]);
 });
 
 Route::get('/home', function () {
@@ -70,3 +72,22 @@ Route::group(['prefix' => 'admin'], function(){
     Route::group(['prefix' => 'inventory'], function(){
     });
 });
+
+
+// Banner
+
+Route::get('/getBanners', 'App\Http\Controllers\BannerController@getBanners');
+
+route::get('updateBanner/{id}','App\Http\Controllers\BannerController@editBanner');
+
+Route::post('updateBanner/{id}','App\Http\Controllers\BannerController@updateBanner');
+Route::group(['prefix' => 'admin'], function(){
+    Route::group(['prefix' => 'product'], function(){
+    });
+});
+
+Route::get('deleteBanner/{id}','App\Http\Controllers\BannerController@deleteBanner');
+
+Route::get('insertBanner','App\Http\Controllers\BannerController@showInsertBanner');
+
+Route::post('insertBanner','App\Http\Controllers\BannerController@insertBanner');

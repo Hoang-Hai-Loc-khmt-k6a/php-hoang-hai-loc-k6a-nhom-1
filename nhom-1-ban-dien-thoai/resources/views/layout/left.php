@@ -98,14 +98,13 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="#" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-3 d-none d-sm-inline me-5">Bootstrap</span></a>
-                        <ul class="collapse nav flex-column ms-3" id="submenu2" data-bs-parent="#menu">
-                            <li class="w-100 ms-3">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
+                        <a href="/public/getBanners" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i>
+                            <span class="ms-3 d-none d-sm-inline me-5">Banners</span>
+                        </a>
+                        <ul class="nav flex-column submenu" id="submenu3">
+                            <li class="w-100">
+                                <a href="/public/insertBanner" class="nav-link px-0"> <span class="d-none d-sm-inline ms-1 me-3">Add</span> </a>
                             </li>
                         </ul>
                     </li>
