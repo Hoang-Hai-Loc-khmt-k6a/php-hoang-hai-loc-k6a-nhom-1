@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //use ProductModel;
 use App\Models\ProductModel;
+use App\Models\BandModel;
+use App\Models\CompanyModel;
 
 class ProductController extends Controller
 {
@@ -26,7 +28,7 @@ class ProductController extends Controller
 
     function getProductsbyBand(Request $request)
     {
-        $band = $request->input('selectBand');
+        $band = $request->input('band');
         $company = $request->input('company');
         $year = $request->input('year');
 
@@ -56,7 +58,9 @@ class ProductController extends Controller
 
     function editProduct($pid){
         $product = ProductModel::where('pid', $pid)->first();
-        return view(('admin/product/updateProduct'),['product'=> $product]);
+        $bands = BandModel::all();
+        $companys = CompanyModel::all();
+        return view(('admin/product/updateProduct'),['product'=> $product, 'bands'=>$bands, 'companys'=>$companys]);
     }
 
     function updateProduct(Request $request ,$pid){
@@ -64,8 +68,10 @@ class ProductController extends Controller
         $product ->pid = $request->pid;
         $product ->pname = $request->pname;
         $product ->company = $request->company;
-        $product ->band = $request->selectBand;
-        $product ->year = $request->selectYear;
+        $product ->band = $request->band;
+        $product ->year = $request->year;
+        $product ->price = $request->price;
+        $product ->hotsale = $request->hotsale;
 
         $image = $request->file('imageUrl');
         $imageName = time().'.'.$image->getClientOriginalExtension();
@@ -79,25 +85,27 @@ class ProductController extends Controller
     function deleteProduct($pid){
         $product = ProductModel::where("pid", $pid)->first();
         $product ->delete();
-        $id = $pid;
-        return redirect('getProducts')->with("Note","Xoa $id thanh cong!");
+        return redirect('getProducts')->with("Note","Xoa $pid thanh cong!");
     }
 
     public function showInsertForm()
     {
-        return view('admin/product/insertProduct');
+        $companys = CompanyModel::all();
+        $bands = BandModel::all();
+        return view('admin/product/insertProduct',['bands'=>$bands, 'companys'=>$companys]);
     }
 
     // Method to handle the insert product form submission
     
     public function insertProduct(Request $request)
     {
-        // Validate and get form data
         $pid = $request->input('pid');
         $pname = $request->input('pname');
         $company = $request->input('company');
-        $band = $request->input('selectBand');
-        $year = $request->input('selectYear');
+        $band = $request->input('band');
+        $year = $request->input('year');
+        $price = $request->input('price');
+        $hotsale = $request->input('hotsale');
 
         $image = $request->file('imageUrl');
         $imageName = time().'.'.$image->getClientOriginalExtension();
@@ -116,10 +124,16 @@ class ProductController extends Controller
         $product->company = $company;
         $product->band = $band;
         $product->year = $year;
+        $product->price = $price;
+        $product->hotsale = $hotsale;
         $product->image = 'images/'.$imageName;
         $product->save();
 
         // Set success message in session
         return redirect('insertProduct/')->with("Note","Thêm thành công!");
+    }
+
+    function detailProduct($pid){
+        return redirect('detailProduct/'.$pid);
     }
 }

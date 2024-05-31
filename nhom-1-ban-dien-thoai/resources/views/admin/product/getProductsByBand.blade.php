@@ -34,7 +34,7 @@
         </div>
         <div>
             <label for="" class="form-label">Select Band</label>
-            <select class="form-select form-select-lg" name="selectBand" id="">
+            <select class="form-select form-select-lg" name="band" id="">
                 <option value="">All</option>
                 @foreach($products as $product)
                     <option value="{{ $product->band }}">{{ $product->band }}</option>

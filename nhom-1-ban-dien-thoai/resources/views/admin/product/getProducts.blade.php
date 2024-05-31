@@ -25,6 +25,8 @@
             <th class="text-center">Company</th>
             <th class="text-center">Year</th>
             <th class="text-center">Band</th>
+            <th class="text-center">Price</th>
+            <th class="text-center">Hot Sale</th>
             <th class="text-center">Image</th>
             <th class="text-center">Edit</th>
             <th class="text-center">Delete</th>
@@ -38,6 +40,8 @@
             <td class="text-left">{{ $product->company }}</td>
             <td class="text-left">{{ $product->year }}</td>
             <td class="text-left">{{ $product->band }}</td>
+            <td class="text-left">{{ $product->price }}</td>
+            <td class="text-left">{{ $product->hotsale }}</td>
             <td class="text-left">
                 <img src="{{ $product->image }}" alt="Image" style="width: 70px;">
             </td>

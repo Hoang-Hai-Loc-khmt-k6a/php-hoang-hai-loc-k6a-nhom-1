@@ -109,8 +109,26 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-people"></i> <span class="ms-3 d-none d-sm-inline me-4">Customers</span> </a>
+                        <a href="/public/getCompanys" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i>
+                            <span class="ms-3 d-none d-sm-inline me-5">Companys</span>
+                        </a>
+                        <ul class="nav flex-column submenu" id="submenu3">
+                            <li class="w-100">
+                                <a href="/public/insertCompany" class="nav-link px-0"> <span class="d-none d-sm-inline ms-1 me-3">Add</span> </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/public/getBands" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i>
+                            <span class="ms-3 d-none d-sm-inline me-5">Bands</span>
+                        </a>
+                        <ul class="nav flex-column submenu" id="submenu3">
+                            <li class="w-100">
+                                <a href="/public/insertBand" class="nav-link px-0"> <span class="d-none d-sm-inline ms-1 me-3">Add</span> </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
                 <hr>

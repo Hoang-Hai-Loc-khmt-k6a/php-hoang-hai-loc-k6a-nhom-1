@@ -29,7 +29,6 @@
             <div class="mb-3">
                 <label for="product_name" class="form-label">Product Name</label>
                 <select class="form-select form-select-lg" name="product_name" id="product_name">
-                    <option value="">All</option>
                     @foreach($products as $product)
                         <option value="{{ $product->pname }}" data-id="{{ $product->id }}">{{ $product->pname }}</option>
                     @endforeach

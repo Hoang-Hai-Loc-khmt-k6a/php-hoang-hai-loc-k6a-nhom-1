@@ -16,47 +16,72 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#">ĐIỆN THOẠI</a></li>
                 <li>
-                    <a href="#">LAPTOP</a>
+                    <a href="#">ĐIỆN THOẠI</a>
                     <ul class="submenu">
-                        <li><a href="#">Máy tính xách tay</a></li>
-                        <li><a href="#">Máy tính để bàn</a></li>
+                    @foreach($companys as $company)
                         <li>
-                            <a href="#">Phụ kiện</a>
+                            <a href="#">{{ $company->name }}</a>
                             <ul class="sub-submenu">
-                                <li><a href="#">Chuột máy tính</a></li>
-                                <li><a href="#">Bàn phím</a></li>
-                                <li><a href="#">Tai nghe</a></li>
+                            @foreach($bands as $band)
+                            @if ($band->company == $company->name)
+                                <li><a href="#">{{ $band->name }}</a></li>
+                            @endif
+                            @endforeach
                             </ul>
                         </li>
+                    @endforeach
                     </ul>
                 </li>
-                <li>
-                    <a href="#">MÁY TÍNH BẢNG</a>
+                <li><a href="#">PHỤ KIỆN</a>
                     <ul class="submenu">
-                        <li><a href="#">Máy tính xách tay</a></li>
-                        <li><a href="#">Máy tính để bàn</a></li>
-                        <li>
-                            <a href="#">Phụ kiện</a>
-                            <ul class="sub-submenu">
-                                <li><a href="#">Chuột máy tính</a></li>
-                                <li><a href="#">Bàn phím</a></li>
-                                <li><a href="#">Tai nghe</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="#">Ốp lưng</a></li>
+                        <li><a href="#">Miếng dán màn hình</a></li>
+                        <li><a href="#">Sạc dự phòng</a></li>
+                        <li><a href="#">Tai nghe</a></li>
+                        <li><a href="#">Loa bluetooth</a></li>
+                        <li><a href="#">Cáp sạc</a></li>
+                        <li><a href="#">Pin điện thoại</a></li>
+                        <li><a href="#">Gậy tự sướng</a></li>
+                        <li><a href="#">Giá đỡ điện thoại</a></li>
+                        <li><a href="#">Thẻ nhớ</a></li>
+                        <li><a href="#">Đèn flash điện thoại</a></li>
+                        <li><a href="#">Kính thực tế ảo (VR)</a></li>
+                        <li><a href="#">Tay cầm chơi game</a></li>
+                        <li><a href="#">Bộ chuyển đổi OTG</a></li>
+                        <li><a href="#">Đồng hồ thông minh</a></li>
+                        <li><a href="#">Bút cảm ứng</a></li>
+                        <li><a href="#">Quạt tản nhiệt điện thoại</a></li>
+                        <li><a href="#">Bộ vệ sinh điện thoại</a></li>
+                        <li><a href="#">Pin sạc không dây</a></li>
+                        <li><a href="#">Đế sạc không dây</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#">PHỤ KIỆN</a>
+                <li><a href="#">SIM & THẺ NHỚ</a>
                     <ul class="submenu">
-                        <li><a href="#">Máy tính xách tay</a></li>
-                        <li><a href="#">Máy tính để bàn</a></li>
+                        <li><a href="#">SIM 4G/5G</a></li>
+                        <li><a href="#">Thẻ nhớ microSD</a></li>
+                        <li><a href="#">Thẻ SIM đa năng</a></li>
                     </ul>
                 </li>
-                <li><a href="#">APPE</a></li>
-                <li><a href="#">PC - LINH KIỆN</a></li>
-                <li><a href="#">MÁY CŨ GIÁ RẺ</a></li>
+                <li><a href="#">MÁY TÍNH BẢNG</a>
+                    <ul class="submenu">
+                        <li><a href="#">Máy tính bảng Apple</a></li>
+                        <li><a href="#">Máy tính bảng Samsung</a></li>
+                        <li><a href="#">Máy tính bảng Xiaomi</a></li>
+                        <li><a href="#">Máy tính bảng Lenovo</a></li>
+                        <li><a href="#">Máy tính bảng Huawei</a></li>
+                        <li><a href="#">Máy tính bảng Asus</a></li>
+                        <li><a href="#">Máy tính bảng Acer</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">MÁY CŨ GIÁ RẺ</a>
+                    <ul class="submenu">
+                        <li><a href="#">Điện thoại cũ</a></li>
+                        <li><a href="#">Máy tính bảng cũ</a></li>
+                        <li><a href="#">Phụ kiện cũ</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <div class="search-bar">
@@ -77,51 +102,43 @@
                 </div>
             @endforeach
         </div>
-        <!-- Products -->
-        <div class="products1">
-            <div class="product">
-                <div class="discount">HOT</div>
-                <img class="product-image" src="/tivi.jpg" alt="Tivi Sony 4K">
-                <p class="product-name">Tivi Sony 4K</p>
-                <p class="price"><span class="old-price">$299</span> $199</p>
-                <button class="buy-button">MUA GIÁ SỐC</button>
-                <a class="product-link" href="#">Xem sản phẩm</a>
-            </div>
-            <div class="product">
-                <div class="discount">HOT</div>
-                <img class="product-image" src="/iphone15.jpg" alt="Iphone 15">
-                <p class="product-name">Iphone 15</p>
-                <p class="price"><span class="old-price">$199</span> $150</p>
-                <button class="buy-button">MUA GIÁ SỐC</button>
-                <a class="product-link" href="#">Xem sản phẩm</a>
-            </div>
-            <div class="product">
-                <div class="discount">HOT</div>
-                <img class="product-image" src="/samsung.jpg" alt="Samsung S24 Ultra">
-                <p class="product-name">S24 Ultra</p>
-                <p class="price"><span class="old-price">$279</span> $239</p>
-                <button class="buy-button">MUA GIÁ SỐC</button>
-                <a class="product-link" href="#">Xem sản phẩm</a>
-            </div>
-            <div class="product">
-                <div class="discount">HOT</div>
-                <img class="product-image" src="/airpods.jpg" alt="Tai nghe Airpods Pro 2 MagSafe (USB‐C)">
-                <p class="product-name">Airpods Pro</p>
-                <p class="price"><span class="old-price">$99</span> $69</p>
-                <button class="buy-button">MUA GIÁ SỐC</button>
-                <a class="product-link" href="#">Xem sản phẩm</a>
-            </div>
-            <div class="product">
-                <div class="discount">HOT</div>
-                <img class="product-image" src="/applewatch.jpg" alt="Đồng hồ Apple Watch SE (2023) GPS">
-                <p class="product-name">Apple Watch SE</p>
-                <p class="price"><span class="old-price">$88</span> $69</p>
-                <button class="buy-button">MUA GIÁ SỐC</button>
-                <a class="product-link" href="#">Xem sản phẩm</a>
-            </div>
+
+        <div class="separator-container">
+            <p class="separator-text">HOT SALE</p>
+            <a href="#mostview" class="mostview-link">Xem Hot Sale</a>
         </div>
 
-        <div class="products2">
+        <!-- Products -->
+        <div class="hotsale-container">
+            <button id="prevButton" class="navigation-button" onclick="moveSlide(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="hotsale">
+                @foreach($products as $product)
+                    @if($product->isHotSale())
+                        <div class="product">
+                            <div class="discount">HOT</div>
+                            <img class="product-image" src="{{ $product->image }}" alt="{{ $product->pname }}">
+                            <p class="product-name">{{ $product->pname }}</p>
+                            <p class="price"><span class="old-price">{{ $product->price }}<sup>đ</sup></span>&nbsp;&nbsp;{{ $product->hotsale }} <sup>đ</sup></p>
+                            <button class="buy-button">MUA GIÁ SỐC</button>
+                            <a class="product-link" href="{{ $product->link }}">Xem sản phẩm</a>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+            <button id="nextButton" class="navigation-button" onclick="moveSlide(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <div class="separator-container">
+            <p class="separator-text">Sản phẩm phổ biến</p>
+            <a href="#mostview" class="mostview-link">Xem tất cả sản phẩm phổ biến</a>
+        </div>
+
+        <!-- <div class="mostview">
             <div class="product">
                 <img src="/caymaytinh.jpg" alt="Cây máy tính">
                 <h2>Cây máy tính</h2>
@@ -152,7 +169,7 @@
                 <p>$29.99</p>
                 <button>Add to Cart</button>
             </div>
-        </div>
+        </div> -->
     </main>
 
     <footer>
@@ -227,8 +244,33 @@
         </div>
     </footer>
 
-    <script src="/resources/js/Script.js">
-        
+    <script src="/resources/js/Script.js"></script>
+    <script>
+        var currentIndex = 0;
+var products = document.querySelectorAll('.product');
+
+function showSlides() {
+    var i;
+    for (i = 0; i < products.length; i++) {
+        products[i].style.display = "none";  
+    }
+    for (i = currentIndex; i < currentIndex + 5; i++) {
+        if (products[i]) {
+            products[i].style.display = "block";  
+        }
+    }
+}
+
+function moveSlide(direction) {
+    if (currentIndex + direction >= 0 && currentIndex + direction <= products.length - 5) {
+        currentIndex += direction;
+        showSlides();
+    }
+}
+
+showSlides();
+
+
     </script>
 </body>
 </html>

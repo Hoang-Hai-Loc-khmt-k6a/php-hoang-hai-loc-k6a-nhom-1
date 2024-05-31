@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductModel extends Model
+class CompanyModel extends Model
 {
     use HasFactory;
     public $timestamps=false;
-    protected $table = "tblProduct";
-    protected $primarykey='pid';
+    protected $table = "company";
+    protected $primarykey='id';
     public $incrementing=false;
     protected $keyType = 'string';
-    public function isHotSale() {
-        return ($this->hotsale);
-    }
 }
-
+?>
