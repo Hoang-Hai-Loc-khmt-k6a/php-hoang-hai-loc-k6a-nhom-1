@@ -19,16 +19,12 @@ Route::get('/home', function () {
     return view('/index');
 });
 
-Route::get('/greeding', function () {
-    
-    return view('greeding',['name'=>'JAME']);
-});
 
 Route::get('/product', 'App\Http\Controllers\ProductController@index'   
 );
 
-Route::get('/login', 'App\Http\Controllers\ProductController@login'   
-);
+Route::get('login', 'App\Http\Controllers\AccoutController@accountVerification');
+Route::post('login', 'App\Http\Controllers\AccoutController@login');
 
 Route::get('/getProducts', 'App\Http\Controllers\ProductController@getProducts'   
 );

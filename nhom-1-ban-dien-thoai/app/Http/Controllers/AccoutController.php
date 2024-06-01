@@ -7,9 +7,26 @@ use App\Models\AccoutModel;
 
 class AccoutController extends Controller
 {
+    public function accountVerification()
+    {
+        return view('login');
+    }
+
+    public function login()
+    {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $accout = AccoutModel::where('email', $email)->where('password', $password)->first();
+        if ($accout && $accout->role == "admin") {
+            return $this->getAccouts();
+        } else {
+            return redirect('login')->with("accout", "1");
+        }
+    }
+
     function getAccouts(){
         $accouts = AccoutModel::all();
-        return view('admin.accout.getAccouts', ['accouts' => $accouts]);
+        return view('admin.accout.getAccouts', ['accouts' => $accouts], );
     }
 
     function getaccoutSearch(Request $request)

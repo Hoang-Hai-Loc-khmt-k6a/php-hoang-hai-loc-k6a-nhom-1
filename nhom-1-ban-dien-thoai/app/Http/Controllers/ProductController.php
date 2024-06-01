@@ -8,17 +8,12 @@ use App\Models\ProductModel;
 use App\Models\BandModel;
 use App\Models\CompanyModel;
 
+
 class ProductController extends Controller
 {
     public function index()
     {
         return view('product'); //tra ve trang product.blade.php
-    }
-
-    public function login()
-    {
-        $name = "Nguyen minh anh!";
-        return view('login')->with('name',$name);
     }
 
     function getProducts(){
