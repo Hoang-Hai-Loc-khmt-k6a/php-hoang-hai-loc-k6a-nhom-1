@@ -64,28 +64,35 @@ class ProductController extends Controller
     }
 
     function updateProduct(Request $request ,$pid){
+        $mostview = $request->mostview === 'on' ? 1 : 0;
         $product = ProductModel::where("pid", $pid)->first();
         $product ->pid = $request->pid;
         $product ->pname = $request->pname;
         $product ->company = $request->company;
         $product ->band = $request->band;
         $product ->year = $request->year;
-        $product ->price = $request->price;
-        $product ->hotsale = $request->hotsale;
+        $product->price = $request->price * 1000;
+        $product ->hotsale = $request->hotsale * 1000;
+        $product ->mostview = $mostview;
 
-        $image = $request->file('imageUrl');
-        $imageName = time().'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('images'), $imageName);
-        $product->image = 'images/'.$imageName;
+        if ($request->file('imageUrl')){
+            $image = $request->file('imageUrl');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $product->image = 'images/'.$imageName;          
+        }
+        else{
+            $image = $request->input('oldImageUrl');
+        }
 
         $product ->save();
-        return redirect('updateProduct/'.$pid)->with("Note","Sua thanh cong!");
+        return redirect('updateProduct/'.$pid)->with("Note","Sửa thành công!");
     }
 
     function deleteProduct($pid){
         $product = ProductModel::where("pid", $pid)->first();
         $product ->delete();
-        return redirect('getProducts')->with("Note","Xoa $pid thanh cong!");
+        return redirect('getProducts')->with("Note","Xoá $pid thành công!");
     }
 
     public function showInsertForm()
@@ -104,8 +111,9 @@ class ProductController extends Controller
         $company = $request->input('company');
         $band = $request->input('band');
         $year = $request->input('year');
-        $price = $request->input('price');
-        $hotsale = $request->input('hotsale');
+        $price = $request->input('price') * 1000;
+        $hotsale = $request->input('hotsale') * 1000;
+        $mostview = $request->input('mostview') === 'on' ? 1 : 0;
 
         $image = $request->file('imageUrl');
         $imageName = time().'.'.$image->getClientOriginalExtension();
@@ -126,6 +134,7 @@ class ProductController extends Controller
         $product->year = $year;
         $product->price = $price;
         $product->hotsale = $hotsale;
+        $product->mostview = $mostview;
         $product->image = 'images/'.$imageName;
         $product->save();
 

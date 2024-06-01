@@ -16,8 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-    $html = "<h1> WELCOME TO HANOI </h1>";
-    return $html;
+    return view('/index');
 });
 
 Route::get('/greeding', function () {

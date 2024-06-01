@@ -23,7 +23,8 @@
     <thead>
         <tr>
             <th class="text-center">ID</th>
-            <th class="text-center">Name Band</th>
+            <th class="text-center">Band</th>
+            <th class="text-center">Company</th>
         </tr>
     </thead>
     <tbody>

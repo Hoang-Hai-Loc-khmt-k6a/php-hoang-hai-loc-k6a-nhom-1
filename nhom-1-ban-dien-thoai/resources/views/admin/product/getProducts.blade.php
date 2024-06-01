@@ -40,8 +40,8 @@
             <td class="text-left">{{ $product->company }}</td>
             <td class="text-left">{{ $product->year }}</td>
             <td class="text-left">{{ $product->band }}</td>
-            <td class="text-left">{{ $product->price }}</td>
-            <td class="text-left">{{ $product->hotsale }}</td>
+            <td class="text-left">{{ number_format($product->price, 0, ',', '.') }}</td>
+            <td class="text-left">{{ number_format($product->hotsale, 0, ',', '.') }}</td>
             <td class="text-left">
                 <img src="{{ $product->image }}" alt="Image" style="width: 70px;">
             </td>

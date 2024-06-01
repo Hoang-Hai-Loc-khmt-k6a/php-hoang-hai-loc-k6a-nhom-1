@@ -42,6 +42,7 @@
         background-color: aquamarine; /* Màu nền khi hover */
     }   
 </style>
+<link rel="stylesheet" type="text/css" href="checkbox.css">
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="col-auto col-md-8 col-xl-8 px-sm-2 px-0 bg-dark">

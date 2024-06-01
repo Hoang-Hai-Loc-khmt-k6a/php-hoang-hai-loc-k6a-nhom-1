@@ -16,5 +16,8 @@ class ProductModel extends Model
     public function isHotSale() {
         return ($this->hotsale);
     }
+    public function isMostView() {
+        return ($this->mostview == 1);
+    }
 }
 

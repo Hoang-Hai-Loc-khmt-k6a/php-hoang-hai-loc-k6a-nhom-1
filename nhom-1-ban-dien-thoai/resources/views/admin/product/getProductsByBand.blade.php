@@ -71,7 +71,7 @@
             <td class="text-left">{{ $product->company }}</td>   
             <td class="text-left">{{ $product->year }}</td>
             <td class="text-left">{{ $product->band }}</td>   
-            <td class="text-left"><img src="{{ $product->image }}" alt="Image"></td>  
+            <td class="text-left"><img src="{{ $product->image }}" alt="Image" style="width: 70px;"></td>  
             <td class="center"><i class="fa fa-pencil fa-fw"></i>
                 <a href="updateProduct/{{ $product->pid }}">Edit</a></td>
             <td class="center"><i class="fa fa-trash-o fa-fw"></i>

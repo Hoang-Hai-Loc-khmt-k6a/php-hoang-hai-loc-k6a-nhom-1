@@ -28,6 +28,8 @@
                 font-weight: bold;
             }
         </style>
+        
+        <link rel="stylesheet" type="text/css" href="/resources/css/checkbox.css">
     </head>
 
     <body>

@@ -1,0 +1,23 @@
+
+.center-input {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 40px;
+    cursor: pointer;
+}
+
+.checkbox-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}

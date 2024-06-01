@@ -88,7 +88,7 @@
             <input type="text" placeholder="Nhập tên điện thoại, máy tnh, phụ khiện... cần tìm">
             <button><i class="fas fa-search"></i></button>
             <div style="margin-left:20px">
-                <i class="fas fa-user"></i><a href="#" class="menu-link">Tài khoản</a>
+                <i class="fas fa-user"></i><a href="./login" class="menu-link">Tài khoản</a>
                 <i class="fas fa-shopping-cart"></i><a href="#" class="menu-link">Giỏ hàng</a>
             </div>
         </div>
@@ -104,7 +104,7 @@
         </div>
 
         <div class="separator-container">
-            <p class="separator-text">HOT SALE</p>
+            <p class="separator-text" style="color:red">HOT SALE</p>
             <a href="#mostview" class="mostview-link">Xem Hot Sale</a>
         </div>
 
@@ -114,62 +114,45 @@
                 <i class="fas fa-chevron-left"></i>
             </button>
 
-            <div class="hotsale">
-                @foreach($products as $product)
-                    @if($product->isHotSale())
-                        <div class="product">
-                            <div class="discount">HOT</div>
-                            <img class="product-image" src="{{ $product->image }}" alt="{{ $product->pname }}">
-                            <p class="product-name">{{ $product->pname }}</p>
-                            <p class="price"><span class="old-price">{{ $product->price }}<sup>đ</sup></span>&nbsp;&nbsp;{{ $product->hotsale }} <sup>đ</sup></p>
-                            <button class="buy-button">MUA GIÁ SỐC</button>
-                            <a class="product-link" href="{{ $product->link }}">Xem sản phẩm</a>
-                        </div>
-                    @endif
-                @endforeach
+            <div class="hotsale-wrapper">
+                <div class="hotsale">
+                    @foreach($products->reverse() as $product)
+                        @if($product->isHotSale())
+                            <div class="product">
+                                <div class="discount">HOT</div>
+                                <img class="product-image" src="{{ $product->image }}" alt="{{ $product->pname }}">
+                                <p class="product-name">{{ $product->pname }}</p>
+                                <p class="price"><span class="old-price">{{ number_format($product->price, 0, ',', '.') }}<sup>đ</sup></span>&nbsp;&nbsp;{{ number_format($product->hotsale, 0, ',', '.') }} <sup>đ</sup></p>
+                                <button class="buy-button">MUA GIÁ SỐC</button>
+                                <a class="product-link" href="{{ $product->link }}">Xem sản phẩm</a>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
             </div>
+            
             <button id="nextButton" class="navigation-button" onclick="moveSlide(1)">
                 <i class="fas fa-chevron-right"></i>
             </button>
         </div>
-        
+
         <div class="separator-container">
             <p class="separator-text">Sản phẩm phổ biến</p>
-            <a href="#mostview" class="mostview-link">Xem tất cả sản phẩm phổ biến</a>
+            <a href="#mostview" class="mostview-link">Xem Sản Phẩm Phổ Biến</a>
         </div>
 
-        <!-- <div class="mostview">
-            <div class="product">
-                <img src="/caymaytinh.jpg" alt="Cây máy tính">
-                <h2>Cây máy tính</h2>
-                <p>$19.99</p>
-                <button>Add to Cart</button>
-            </div>
-            <div class="product">
-                <img src="/maytinh.jpg" alt="Máy tính">
-                <h2>Máy tính</h2>
-                <p>$24.99</p>
-                <button>Add to Cart</button>
-            </div>
-            <div class="product">
-                <img src="/maytinhbang.jpg" alt="Máy tính bảng">
-                <h2>Máy tính bảng</h2>
-                <p>$29.99</p>
-                <button>Add to Cart</button>
-            </div>
-            <div class="product">
-                <img src="/chuot.jpg" alt="Chuột Razer DeathAdder V3 Pro Wireless - White">
-                <h2>Chuột Razer V3 Pro</h2>
-                <p>$29.99</p>
-                <button>Add to Cart</button>
-            </div>
-            <div class="product">
-                <img src="/case.jpg" alt="Core I5 12400F|Ram 16G| GTX 1660 Super 6G| NVME 250G">
-                <h2>Case Core I5 12400F</h2>
-                <p>$29.99</p>
-                <button>Add to Cart</button>
-            </div>
-        </div> -->
+        <div class="mostview">
+            @foreach($products->reverse() as $product)
+                @if($product->isMostView())
+                    <div class="product">
+                        <img src="{{ $product->image }}" alt="{{ $product->pname }}">
+                        <h2>{{ $product->pname }}</h2>
+                        <p>{{ number_format($product->price, 0, ',', '.') }}<sup>đ</sup></p>
+                        <button>Add to Cart</button>
+                    </div>
+                @endif
+            @endforeach
+        </div> 
     </main>
 
     <footer>
@@ -247,29 +230,22 @@
     <script src="/resources/js/Script.js"></script>
     <script>
         var currentIndex = 0;
-var products = document.querySelectorAll('.product');
+        var hotsales = document.querySelectorAll('.hotsale .product');
 
-function showSlides() {
-    var i;
-    for (i = 0; i < products.length; i++) {
-        products[i].style.display = "none";  
-    }
-    for (i = currentIndex; i < currentIndex + 5; i++) {
-        if (products[i]) {
-            products[i].style.display = "block";  
+        function showSlides() {
+            hotsales.forEach((product, index) => {
+                product.style.display = (index >= currentIndex && index < currentIndex + 5) ? 'block' : 'none';
+            });
         }
-    }
-}
 
-function moveSlide(direction) {
-    if (currentIndex + direction >= 0 && currentIndex + direction <= products.length - 5) {
-        currentIndex += direction;
-        showSlides();
-    }
-}
+        function moveSlide(direction) {
+            if (currentIndex + direction >= 0 && currentIndex + direction <= hotsales.length - 5) {
+                currentIndex += direction;
+                showSlides();
+            }
+        }
 
-showSlides();
-
+        document.addEventListener('DOMContentLoaded', showSlides);
 
     </script>
 </body>
