@@ -28,7 +28,7 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form action="{{ 'login' }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ 'sginin' }}" method="POST" enctype="multipart/form-data">
             <input class="hidden" name="_token" value="{{ csrf_token() }}" style="display: none;"/>
                 <h1>Create Account</h1>
                 <div class="social-container">
@@ -36,10 +36,15 @@
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
+                @if (session('Note'))
+                <div class="alert alert-success">
+                    {{ session('Note') }}
+                </div>
+                @endif
                 <span>or use your email for registration</span>
-                <input type="text" placeholder="Name" name="fullname"/>
-                <input type="email" placeholder="Email" name="email"/>
-                <input type="password" placeholder="Password" name="password"/>
+                <input type="text" placeholder="Name" name="themfullname" id="themfullname"/>
+                <input type="email" placeholder="Email" name="thememail" id="thememail"/>
+                <input type="password" placeholder="Password" name="thempassword" id="thempassword"/>
                 <button type="submit">Sign Up</button>
             </form>
         </div>
@@ -57,6 +62,11 @@
                     <div class="alert alert-warning">
                         <h5>Đăng nhập không thành công</h5>
                     </div>
+                @endif
+                @if (session('Note'))
+                <div class="alert alert-warning">
+                    <h5>{{ session('Note') }}</h5>
+                </div>
                 @endif
                 <input type="email" placeholder="Email" name="email" id="name"/>
                 <input type="password" placeholder="Password" name="password" id="password"/>

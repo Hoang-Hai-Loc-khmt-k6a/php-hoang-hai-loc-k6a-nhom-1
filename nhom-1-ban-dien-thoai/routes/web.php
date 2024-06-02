@@ -26,6 +26,8 @@ Route::get('/product', 'App\Http\Controllers\ProductController@index'
 Route::get('login', 'App\Http\Controllers\AccoutController@accountVerification');
 Route::post('login', 'App\Http\Controllers\AccoutController@login');
 
+Route::post('sginin', 'App\Http\Controllers\AccoutController@themtaikhoan');
+
 Route::get('/getProducts', 'App\Http\Controllers\ProductController@getProducts'   
 );
 

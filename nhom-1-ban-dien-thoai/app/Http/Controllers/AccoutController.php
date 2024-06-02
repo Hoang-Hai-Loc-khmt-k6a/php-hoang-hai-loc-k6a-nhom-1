@@ -87,20 +87,8 @@ class AccoutController extends Controller
     public function insertAccout(Request $request)
     {
         // Validate and get form data
-        $id = $request->input('id');
-        $username = $request->input('username');
-        $password = $request->input('password');
-        $email = $request->input('email');
-        $fullname = $request->input('fullname');
-        $phone = $request->input('phone');
-        $address = $request->input('address');
-        $role = $request->input('role');
-
-        // Check if pid already exists in the database
-        if (AccoutModel::where('id', $id)->exists()) {
-            // Set error message in session
-            return redirect('insertAccout/')->with("Note","PID đã có trên hệ thống!");
-        }
+        
+        
 
         $accout = new AccoutModel();
         $accout->username = $request->username;
@@ -114,4 +102,23 @@ class AccoutController extends Controller
         $accout->save();
         return redirect('insertAccout/')->with("Note", "Thêm mới thành công!");
     }
+
+    public function themtaikhoan(Request $request)
+    {
+        // Validate and get form data
+        
+        
+        $password = $request->thempassword;
+        $email = $request->thememail;
+        $fullname = $request->themfullname;      
+        
+        $accout = new AccoutModel();      
+        $accout->password = $password;
+        $accout->email = $email;
+        $accout->fullname = $fullname;
+        
+        $accout->save();
+        return redirect('login')->with("Note", "Thêm mới thành công!");
+    }
+
 }
