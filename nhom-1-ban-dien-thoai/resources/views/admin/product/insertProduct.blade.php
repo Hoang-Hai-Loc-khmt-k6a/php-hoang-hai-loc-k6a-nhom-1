@@ -172,14 +172,14 @@
 
                 reader.onload = function(e) {
                     imagePreview.src = e.target.result;
-                    imagePreviewContainer.style.display = 'block'; // Hiển thị thẻ container khi có tệp được chọn
+                    imagePreviewContainer.style.display = 'block';
                     oldImageUrl.value = e.target.result;
                 };
 
                 reader.readAsDataURL(file);
             } else {
-                imagePreview.src = ''; // Đặt src của hình ảnh thành rỗng nếu không có tệp được chọn
-                imagePreviewContainer.style.display = 'none'; // Ẩn thẻ container khi không có tệp được chọn
+                imagePreview.src = '';
+                imagePreviewContainer.style.display = 'none';
             }
         }
     </script>

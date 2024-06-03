@@ -14,16 +14,16 @@
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            width: 1000px;
+            margin: 60px;
+            padding: 40px;
         }
 
         .product-detail {
+            min-height: 500px;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            align-items: center;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
@@ -33,6 +33,7 @@
         .product-image {
             flex: 1 1 40%;
             margin-right: 20px;
+            margin-top: 70px;
         }
 
         .product-image img {
@@ -51,7 +52,6 @@
         }
 
         .price {
-            color: red;
             font-size: 20px;
             font-weight: bold;
             margin-bottom: 15px;
@@ -83,6 +83,43 @@
         .buy-button:hover {
             background-color: #cc3700;
         }
+        .product-image {
+            width: 50px; 
+            height: 150px; 
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; 
+        }
+        
+        .product-details {
+            display: flex;
+        }
+
+        .column {
+            flex: 1;
+            border: 1px solid #ccc; 
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        .detail {
+            padding: 5px; 
+            border-bottom: 1px solid #ccc; 
+            display: flex; 
+            flex: 1; 
+        }
+
+
+        .label {
+            font-weight: bold;
+        }
+
+        .value {
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -91,19 +128,67 @@
     <div class="container">
         <div class="product-detail">
             <div class="product-image">
-                <img src="../{{ $product->image }}" alt="{{ $product->pname }}">
-            </div>
-            <div class="product-info">
+                <img src="/public/{{ $product->image }}" alt="{{ $product->pname }}" >
                 <h1>{{ $product->pname }}</h1>
                 <p class="price">
-                    <span class="old-price">{{ number_format($product->price, 0, ',', '.') }}<sup>đ</sup></span>&nbsp;&nbsp;
-                    {{ number_format($product->hotsale, 0, ',', '.') }} <sup>đ</sup>
+                    Giá: 
+                    <span class="old-price">{{ number_format($product->price, 0, ',', '.') }}<sup>đ</sup></span>&nbsp;&nbsp;→&nbsp;&nbsp;
+                    <span class="price" style="color: red;">{{ number_format($product->hotsale, 0, ',', '.') }} <sup>đ</sup></span>
                 </p>
-                <p>{{ $product->description }}</p>
-                <button class="buy-button">Thêm vào giỏ</button>
+                <button class="buy-button" style="display: block; margin: 50px auto; ">Thêm vào giỏ</button>
+            </div>
+            <div class="product-info">
+                <div class="product-details">
+                    @php
+                        $details = explode("\n", $product->description);
+                    @endphp
+                    <div class="column" style="max-width: 130px;">
+                        @foreach($details as $detail)
+                            @php
+                                $parts = explode(':', $detail);
+                            @endphp
+                            <div class="detail">
+                                <span class="label" style="height:60px"><b>{{ $parts[0] }}</b>:</span>
+                            </div>
+                        @endforeach
+                    </div>
+                        
+                    <div class="column">
+                        @php
+                            $details = explode("\n", $product->description);
+                        @endphp
+                        @if(!empty($details))
+                            @foreach($details as $detail)
+                                @php
+                                    $parts = explode(':', $detail);
+                                @endphp
+                                <div class="detail">
+                                    @if(isset($parts[1]))
+                                        <span class="value">{{ $parts[1] }}</span>
+                                    @else
+                                        <span class="value">N/A</span>
+                                    @endif
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="detail">
+                                <span class="value">N/A</span>
+                            </div>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var secondColumnHeight = $('.column:last-child').outerHeight();
+        $('.column:first-child').css('height', secondColumnHeight + 'px');
+    });
+</script>
+
+
     @endsection
 </body>
 </html>

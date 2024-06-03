@@ -20,6 +20,7 @@ class AccoutController extends Controller
         $fullname = $accout->fullname;
         session(['fullname' => $fullname]);
         if ($accout && $accout->role == "admin") {
+            session(['admin' => 1]);
             return $this->getAccouts();
         }
         elseif ($accout && $accout->role == "customer") {

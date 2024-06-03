@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dev Shop</title>
+    <title>không tuổi mấy thằng jáck</title>
     <link rel="stylesheet" type="text/css" href="/resources/css/Style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
     <style>
@@ -39,10 +39,12 @@
 </head>
 <body>
     <header id="header">
-        <div class="logo">
-            <img src="/devlogo.png" alt="Dev Shop Logo">
-            <h3>Dev Shop</h3>
-        </div>
+        <a href="/public/index.php" style="text-decoration: none;">
+            <div class="logo">
+                <img src="/public/images/logo.png" alt="Shop Phone">
+                <h3 style="color: #fff">Dev Shop tuoi lol</h3>
+            </div>
+        </a>
         <nav>
             <ul>
                 <li>
@@ -122,6 +124,9 @@
                         <i class="fas fa-user"></i><a href="#" class="menu-link">{{ session('fullname') }}</a>
                         <div class="dropdown-content">
                             <a href="./profile">Profile</a>
+                            @if ( session('admin') == 1) 
+                                <a href="/public/getAccouts">Quản lí</a>
+                            @endif
                             <a href="{{ route('logout') }}">Logout</a>
                         </div>
                     </div>
@@ -133,68 +138,71 @@
         </div>
     </header>
     <main>
-        @yield('detail')
-        <!-- Banner -->
-        <div class="banner-container">
-            @foreach($banners as $banner)
-                <div class="banner">
-                    <a href="#" ><img src="{{ $banner->image_url }}" alt="{{ $banner->title }}"></a>
-                </div>
-            @endforeach
-        </div>
-
-
-        <div class="separator-container">
-            <p class="separator-text" style="color:red">HOT SALE</p>
-            <a href="hotsale" class="mostview-link">Xem Hot Sale</a>
-        </div>
-
-        <!-- Products -->
-        <div class="hotsale-container">
-            <button id="prevButton" class="navigation-button" onclick="moveSlide(-1)">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-
-            <div class="hotsale-wrapper">
-                <div class="hotsale">
-                    @foreach($products->reverse() as $product)
-                        @if($product->isHotSale())
-                            <a href="{{ route('product.detail', ['id' => $product->id]) }}" class="product-link">
-                                <div class="product">
-                                    <div class="discount">HOT</div>
-                                    <img class="product-image" src="{{ $product->image }}" alt="{{ $product->pname }}">
-                                    <p class="product-name">{{ $product->pname }}</p>
-                                    <p class="price"><span class="old-price">{{ number_format($product->price, 0, ',', '.') }}<sup>đ</sup></span>&nbsp;&nbsp;{{ number_format($product->hotsale, 0, ',', '.') }} <sup>đ</sup></p>
-                                    <button class="buy-button">MUA GIÁ SỐC</button>
-                                </div>
-                            </a>
-                        @endif
-                    @endforeach
-                </div>
-            </div>
-            
-            <button id="nextButton" class="navigation-button" onclick="moveSlide(1)">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
-
-        <div class="separator-container">
-            <p class="separator-text">Sản phẩm phổ biến</p>
-            <a href="" class="mostview-link">Xem Sản Phẩm Phổ Biến</a>
-        </div>
-
-        <div class="mostview">
-            @foreach($products->reverse() as $product)
-                @if($product->isMostView())
-                    <div class="product">
-                        <img src="{{ $product->image }}" alt="{{ $product->pname }}">
-                        <h2>{{ $product->pname }}</h2>
-                        <p>{{ number_format($product->price, 0, ',', '.') }}<sup>đ</sup></p>
-                        <button>Add to Cart</button>
+        @hasSection('detail')
+            @yield('detail')
+        @else
+            <!-- Banner -->
+            <div class="banner-container">
+                @foreach($banners as $banner)
+                    <div class="banner">
+                        <a href="#" ><img src="{{ $banner->image_url }}" alt="{{ $banner->title }}"></a>
                     </div>
-                @endif
-            @endforeach
-        </div> 
+                @endforeach
+            </div>
+
+
+            <div class="separator-container">
+                <p class="separator-text" style="color:red">HOT SALE</p>
+                <a href="hotsale" class="mostview-link">Xem Hot Sale</a>
+            </div>
+
+            <!-- Products -->
+            <div class="hotsale-container">
+                <button id="prevButton" class="navigation-button" onclick="moveSlide(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+
+                <div class="hotsale-wrapper">
+                    <div class="hotsale">
+                        @foreach($products->reverse() as $product)
+                            @if($product->isHotSale())
+                                <a href="{{ route('product.detail', ['id' => $product->id]) }}" class="product-link">
+                                    <div class="product">
+                                        <div class="discount">HOT</div>
+                                        <img class="product-image" src="{{ $product->image }}" alt="{{ $product->pname }}">
+                                        <p class="product-name">{{ $product->pname }}</p>
+                                        <p class="price"><span class="old-price">{{ number_format($product->price, 0, ',', '.') }}<sup>đ</sup></span>&nbsp;&nbsp;{{ number_format($product->hotsale, 0, ',', '.') }} <sup>đ</sup></p>
+                                        <button class="buy-button">MUA GIÁ SỐC</button>
+                                    </div>
+                                </a>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+                
+                <button id="nextButton" class="navigation-button" onclick="moveSlide(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <div class="separator-container">
+                <p class="separator-text">Sản phẩm phổ biến</p>
+                <a href="" class="mostview-link">Xem Sản Phẩm Phổ Biến</a>
+            </div>
+
+            <div class="mostview">
+                @foreach($products->reverse() as $product)
+                    @if($product->isMostView())
+                        <div class="product">
+                            <img src="{{ $product->image }}" alt="{{ $product->pname }}">
+                            <h2>{{ $product->pname }}</h2>
+                            <p>{{ number_format($product->price, 0, ',', '.') }}<sup>đ</sup></p>
+                            <button>Add to Cart</button>
+                        </div>
+                    @endif
+                @endforeach
+            </div> 
+        @endif
     </main>
 
     <footer>

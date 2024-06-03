@@ -43,10 +43,9 @@ header {
 }
 
     .logo img {
-        border-radius: 50%;
-        width: 40px;
+        width: 80px;
         height: 40px;
-        margin-right: 10px;
+        margin-right: 40px;
     }
 
 
