@@ -88,9 +88,12 @@
                     @endfor
                 </select>
             </div>
-            <div class="mb-3"></div>
-            <div class="mb-3" id="imagePreviewContainer" style="display: none;">
-                <img id="imagePreview" src="" alt="Image" style="width: 100px;">
+            <div class="mb-3">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" id="description" class="form-control" style="height: 200px;" placeholder="Mô tả sản phẩm" onfocus="if(this.placeholder === 'Mô tả sản phẩm') {this.placeholder = '';}" onblur="if(this.placeholder === '') {this.placeholder = 'Mô tả sản phẩm';}" ></textarea>
+            </div>
+            <div class="mb-3" id="imagePreviewContainer" style="display: none; text-align: center;">
+                <img id="imagePreview" src="" alt="Image" style="width: 300px; display: inline-block; margin-top: 40px;">
             </div>
         </div>
     </form>

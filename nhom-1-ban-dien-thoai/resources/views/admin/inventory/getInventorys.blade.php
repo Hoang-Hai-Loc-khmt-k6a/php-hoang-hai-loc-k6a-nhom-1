@@ -31,7 +31,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($inventories as $inventory)
+        @foreach ($inventories->reverse() as $inventory)
         <tr>
             <td class="text-left">{{ $inventory->ProductID}}</td>
             <td class="text-left">{{ $inventory->proname }}</td>

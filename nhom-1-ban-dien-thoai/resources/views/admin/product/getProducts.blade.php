@@ -33,7 +33,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($products as $product)
+        @foreach($products->reverse() as $product)
         <tr>
             <td class="text-left">{{ $product->pid }}</td>
             <td class="text-left">{{ $product->pname }}</td>

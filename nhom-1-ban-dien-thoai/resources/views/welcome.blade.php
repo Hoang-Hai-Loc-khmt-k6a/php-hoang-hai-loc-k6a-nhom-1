@@ -6,7 +6,36 @@
     <title>Dev Shop</title>
     <link rel="stylesheet" type="text/css" href="/resources/css/Style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <header id="header">
@@ -88,12 +117,23 @@
             <input type="text" placeholder="Nhập tên điện thoại, máy tnh, phụ khiện... cần tìm">
             <button><i class="fas fa-search"></i></button>
             <div style="margin-left:20px">
-                <i class="fas fa-user"></i><a href="./login" class="menu-link">Tài khoản</a>
-                <i class="fas fa-shopping-cart"></i><a href="#" class="menu-link">Giỏ hàng</a>
+                @if (session('fullname'))
+                    <div class="dropdown">
+                        <i class="fas fa-user"></i><a href="#" class="menu-link">{{ session('fullname') }}</a>
+                        <div class="dropdown-content">
+                            <a href="./profile">Profile</a>
+                            <a href="{{ route('logout') }}">Logout</a>
+                        </div>
+                    </div>
+                    <i class="fas fa-shopping-cart"></i><a href="./cart" class="menu-link">Giỏ hàng</a>
+                @else
+                    <i class="fas fa-user"></i><a href="./login" class="menu-link">Tài khoản</a>
+                @endif
             </div>
         </div>
     </header>
     <main>
+        @yield('detail')
         <!-- Banner -->
         <div class="banner-container">
             @foreach($banners as $banner)
@@ -103,9 +143,10 @@
             @endforeach
         </div>
 
+
         <div class="separator-container">
             <p class="separator-text" style="color:red">HOT SALE</p>
-            <a href="#mostview" class="mostview-link">Xem Hot Sale</a>
+            <a href="hotsale" class="mostview-link">Xem Hot Sale</a>
         </div>
 
         <!-- Products -->
@@ -118,14 +159,15 @@
                 <div class="hotsale">
                     @foreach($products->reverse() as $product)
                         @if($product->isHotSale())
-                            <div class="product">
-                                <div class="discount">HOT</div>
-                                <img class="product-image" src="{{ $product->image }}" alt="{{ $product->pname }}">
-                                <p class="product-name">{{ $product->pname }}</p>
-                                <p class="price"><span class="old-price">{{ number_format($product->price, 0, ',', '.') }}<sup>đ</sup></span>&nbsp;&nbsp;{{ number_format($product->hotsale, 0, ',', '.') }} <sup>đ</sup></p>
-                                <button class="buy-button">MUA GIÁ SỐC</button>
-                                <a class="product-link" href="{{ $product->link }}">Xem sản phẩm</a>
-                            </div>
+                            <a href="{{ route('product.detail', ['id' => $product->id]) }}" class="product-link">
+                                <div class="product">
+                                    <div class="discount">HOT</div>
+                                    <img class="product-image" src="{{ $product->image }}" alt="{{ $product->pname }}">
+                                    <p class="product-name">{{ $product->pname }}</p>
+                                    <p class="price"><span class="old-price">{{ number_format($product->price, 0, ',', '.') }}<sup>đ</sup></span>&nbsp;&nbsp;{{ number_format($product->hotsale, 0, ',', '.') }} <sup>đ</sup></p>
+                                    <button class="buy-button">MUA GIÁ SỐC</button>
+                                </div>
+                            </a>
                         @endif
                     @endforeach
                 </div>
@@ -138,7 +180,7 @@
 
         <div class="separator-container">
             <p class="separator-text">Sản phẩm phổ biến</p>
-            <a href="#mostview" class="mostview-link">Xem Sản Phẩm Phổ Biến</a>
+            <a href="" class="mostview-link">Xem Sản Phẩm Phổ Biến</a>
         </div>
 
         <div class="mostview">

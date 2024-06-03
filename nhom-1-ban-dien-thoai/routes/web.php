@@ -25,12 +25,14 @@ Route::get('/product', 'App\Http\Controllers\ProductController@index'
 
 Route::get('login', 'App\Http\Controllers\AccoutController@accountVerification');
 Route::post('login', 'App\Http\Controllers\AccoutController@login');
+Route::post('signin', 'App\Http\Controllers\AccoutController@signin');
+Route::get('/logout', 'App\Http\Controllers\AccoutController@logout')->name('logout');
 
 Route::get('/getProducts', 'App\Http\Controllers\ProductController@getProducts'   
 );
 
 
-Route::get('detailProduct/{pid}','App\Http\Controllers\ProductController@detailProduct');
+Route::get('/product/{id}', 'App\Http\Controllers\ProductController@detail')->name('product.detail');
 Route::get('getproductsbyBand','App\Http\Controllers\ProductController@getProductsbyBand')->name('admin.product.getProductsByBand');
 route::get('updateProduct/{pid}','App\Http\Controllers\ProductController@editProduct');
 Route::post('updateProduct/{pid}','App\Http\Controllers\ProductController@updateProduct');

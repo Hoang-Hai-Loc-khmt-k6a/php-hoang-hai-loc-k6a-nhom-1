@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ProductModel;
 use App\Models\BandModel;
 use App\Models\CompanyModel;
+use App\Models\BannerModel;
 
 
 class ProductController extends Controller
@@ -69,6 +70,7 @@ class ProductController extends Controller
         $product->price = $request->price * 1000;
         $product ->hotsale = $request->hotsale * 1000;
         $product ->mostview = $mostview;
+        $product ->description = $request->description;
 
         if ($request->file('imageUrl')){
             $image = $request->file('imageUrl');
@@ -102,10 +104,6 @@ class ProductController extends Controller
     public function insertProduct(Request $request)
     {
         $pid = $request->input('pid');
-        $pname = $request->input('pname');
-        $company = $request->input('company');
-        $band = $request->input('band');
-        $year = $request->input('year');
         $price = $request->input('price') * 1000;
         $hotsale = $request->input('hotsale') * 1000;
         $mostview = $request->input('mostview') === 'on' ? 1 : 0;
@@ -123,13 +121,14 @@ class ProductController extends Controller
         // Insert product into the database
         $product = new ProductModel();
         $product->pid = $pid;
-        $product->pname = $pname;
-        $product->company = $company;
-        $product->band = $band;
-        $product->year = $year;
+        $product->pname = $request->pname;
+        $product->company = $request->company;
+        $product->band = $request->band;
+        $product->year = $request->year;
         $product->price = $price;
         $product->hotsale = $hotsale;
         $product->mostview = $mostview;
+        $product->description = $request->description;
         $product->image = 'images/'.$imageName;
         $product->save();
 
@@ -137,7 +136,15 @@ class ProductController extends Controller
         return redirect('insertProduct/')->with("Note","Thêm thành công!");
     }
 
-    function detailProduct($pid){
-        return redirect('detailProduct/'.$pid);
+    public function detail($id)
+    {
+        $product = ProductModel::find($id);
+        $banners = BannerModel::all();
+        $companys = CompanyModel::all();
+        $bands = BandModel::all();
+        $products = ProductModel::all();
+
+        return view('admin/product/detailProduct', compact('product', 'banners', 'companys', 'bands', 'products'));
     }
+
 }

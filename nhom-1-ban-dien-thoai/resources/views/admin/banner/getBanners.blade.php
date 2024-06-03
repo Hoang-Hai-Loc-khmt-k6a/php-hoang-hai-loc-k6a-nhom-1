@@ -31,7 +31,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($banners as $banner)
+        @foreach($banners->reverse() as $banner)
         <tr>
             <td class="text-left">{{ $banner->id }}</td>
             <td class="text-left">{{ $banner->title }}</td>

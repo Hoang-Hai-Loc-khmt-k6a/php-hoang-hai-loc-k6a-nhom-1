@@ -49,7 +49,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($accouts as $accout)
+        @foreach ($accouts->reverse() as $accout)
         <tr>
             <td class="text-left">{{ $accout->id }}</td>
             <td class="text-left">{{ $accout->username }}</td>

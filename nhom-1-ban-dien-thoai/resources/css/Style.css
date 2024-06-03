@@ -212,7 +212,7 @@ main {
 
 .hotsale-wrapper {
     overflow: hidden;
-    width: 90%; 
+    width: 100%; 
     margin: 0 auto;
     position: relative;
 }
@@ -260,6 +260,7 @@ main {
     .hotsale .product-name {
         font-size: 18px;
         font-weight: bold;
+        height: 40px;
     }
 
     .hotsale .price {

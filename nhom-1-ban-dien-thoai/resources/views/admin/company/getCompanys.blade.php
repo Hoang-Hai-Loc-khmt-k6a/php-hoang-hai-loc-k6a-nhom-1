@@ -27,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($companys as $company)
+        @foreach($companys->reverse() as $company)
         <tr>
             <td class="text-left">{{ $company->id }}</td>
             <td class="text-left">{{ $company->name }}</td>

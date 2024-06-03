@@ -17,10 +17,17 @@ class AccoutController extends Controller
         $email = $_POST['email'];
         $password = $_POST['password'];
         $accout = AccoutModel::where('email', $email)->where('password', $password)->first();
+        $fullname = $accout->fullname;
+        session(['fullname' => $fullname]);
         if ($accout && $accout->role == "admin") {
             return $this->getAccouts();
-        } else {
-            return redirect('login')->with("accout", "1");
+        }
+        elseif ($accout && $accout->role == "customer") {
+            return redirect('./');
+        }
+
+        else {
+            return redirect('login')->with("accout", "Đăng nhập không thành công");
         }
     }
 
@@ -86,32 +93,58 @@ class AccoutController extends Controller
     }
     public function insertAccout(Request $request)
     {
-        // Validate and get form data
-        $id = $request->input('id');
-        $username = $request->input('username');
-        $password = $request->input('password');
-        $email = $request->input('email');
-        $fullname = $request->input('fullname');
-        $phone = $request->input('phone');
-        $address = $request->input('address');
-        $role = $request->input('role');
+        try {
+            // Sử dụng Validator để kiểm tra các trường dữ liệu
+            $validated = $request->validate([
+                'username' => 'required|string|max:255|unique:accouts,username',
+                'password' => 'required|string|min:6',
+                'email' => 'required|email|unique:accouts,email',
+                'fullname' => 'required|string|max:255',
+                'phone' => 'required|string|max:15',
+                'address' => 'required|string|max:255',
+                'role' => 'required|string|max:50',
+            ]);
 
-        // Check if pid already exists in the database
-        if (AccoutModel::where('id', $id)->exists()) {
-            // Set error message in session
-            return redirect('insertAccout/')->with("Note","PID đã có trên hệ thống!");
+            // Tạo mới một đối tượng AccoutModel
+            $accout = new AccoutModel();
+            $accout->username = $request->username;
+            $accout->password = $request->password;
+            $accout->email = $request->email;
+            $accout->fullname = $request->fullname;
+            $accout->phone = $request->phone;
+            $accout->address = $request->address;
+            $accout->role = $request->role;
+
+            // Lưu vào cơ sở dữ liệu
+            $accout->save();
+
+            // Chuyển hướng tới trang insertAccout với thông báo thành công
+            return redirect('insertAccout/')->with("Note", "Thêm mới thành công!");
+        } catch (\Exception $e) {
+            // Bắt các lỗi xảy ra và chuyển hướng tới trang insertAccout với thông báo lỗi
+            return redirect('insertAccout/')->with("error", $e->getMessage());
         }
+    }
 
-        $accout = new AccoutModel();
-        $accout->username = $request->username;
-        $accout->password = $request->password;
-        $accout->email = $request->email;
-        $accout->fullname = $request->fullname;
-        $accout->phone = $request->phone;
-        $accout->address = $request->address;
-        $accout->role = $request->role;
+    public function signin(Request $request)
+    {
+            // Tạo mới một đối tượng AccoutModel
+            $accout = new AccoutModel();
+            $accout->password = $request->password;
+            $accout->email = $request->email;
+            $accout->fullname = $request->fullname;
 
-        $accout->save();
-        return redirect('insertAccout/')->with("Note", "Thêm mới thành công!");
+            // Lưu vào cơ sở dữ liệu
+            $accout->save();
+
+            // Chuyển hướng tới trang login với thông báo thành công
+            return redirect('login/')->with("createAccout", "Tạo tài khoản thành công!")
+            ->withInput(['email' => $request->email, 'password' => $request->password]);
+    }
+
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+        return redirect('index.php');
     }
 }

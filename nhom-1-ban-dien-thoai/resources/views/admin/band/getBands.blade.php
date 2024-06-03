@@ -28,7 +28,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($bands as $band)
+        @foreach($bands->reverse() as $band)
         <tr>
             <td class="text-left">{{ $band->id }}</td> 
             <td class="text-left">{{ $band->name }}</td>

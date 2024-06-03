@@ -28,7 +28,7 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form action="{{ 'login' }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ 'signin' }}" method="POST" enctype="multipart/form-data">
             <input class="hidden" name="_token" value="{{ csrf_token() }}" style="display: none;"/>
                 <h1>Create Account</h1>
                 <div class="social-container">
@@ -37,9 +37,9 @@
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email for registration</span>
-                <input type="text" placeholder="Name" name="fullname"/>
-                <input type="email" placeholder="Email" name="email"/>
-                <input type="password" placeholder="Password" name="password"/>
+                <input type="text" placeholder="Name" name="fullname" autocomplete="off"/>
+                <input type="email" placeholder="Email" name="email" autocomplete="off"/>
+                <input type="password" placeholder="Password" name="password" autocomplete="new-password"/>
                 <button type="submit">Sign Up</button>
             </form>
         </div>
@@ -53,13 +53,23 @@
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your account</span>
-                @if (session('accout')==1)
+                @if (session('accout'))
                     <div class="alert alert-warning">
-                        <h5>Đăng nhập không thành công</h5>
+                        <h5>{{session('accout')}}</h5>
                     </div>
                 @endif
-                <input type="email" placeholder="Email" name="email" id="name"/>
-                <input type="password" placeholder="Password" name="password" id="password"/>
+                @if (session('createAccout'))
+                    <div class="alert alert-success">
+                        {{ session('createAccout') }}
+                    </div>
+                @endif
+                @if (session('signin'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                <input type="email" placeholder="Email" name="email" id="email" autocomplete="off" value="{{ old('email') }}"/>
+                <input type="password" placeholder="Password" name="password" id="password" autocomplete="new-password" value="{{ old('password') }}"/>
                 <a href="#">Forgot your password?</a>
                 <button type="submit">Sign In</button>
             </form>

@@ -18,6 +18,11 @@
             {{ session('Note') }}
         </div>
     @endif
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <form action="{{ url('insertAccout') }}" method="POST" enctype="multipart/form-data">
         @csrf
